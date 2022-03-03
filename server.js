@@ -2,6 +2,7 @@ const express = require('express'); //requires express module
 const socket = require('socket.io'); //requires socket.io module
 const fs = require('fs');
 const app = express();
+const path = require('path')
 
 const { lookup } = require('geoip-lite');
 const router = express.Router();
@@ -9,6 +10,8 @@ const router = express.Router();
 // .Env
 const dotenv = require('dotenv');
 dotenv.config();
+
+app.use('/static', express.static(path.join(__dirname, 'public')))
 
 router.get('/country', (req,res) => {
     const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
